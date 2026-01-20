@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cedg4p1ktt00c"]
+
+[ext_resource type="Script" uid="uid://dclhr4q00jc3u" path="res://Enemy/enemy.gd" id="1_2pb1h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pb1h"]
+albedo_color = Color(0.24419999, 0.6904201, 0.74, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xjnqo"]
+material = SubResource("StandardMaterial3D_2pb1h")
+radius = 1.0
+height = 3.0
+
+[node name="Enemy" type="PathFollow3D"]
+transform = Transform3D(0.9999959, 0, 0, 0, 1, 0, 0, 0, 0.9999959, 0, 0, 0)
+loop = false
+script = ExtResource("1_2pb1h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+mesh = SubResource("CapsuleMesh_xjnqo")
