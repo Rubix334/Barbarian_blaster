@@ -17,8 +17,8 @@ var health : int:
 @onready var text : Label3D = $Label3D
 
 func _ready() -> void:
+	#Engine.time_scale = 2
 	health = max_health
 
 func take_damage() -> void:
 	health -= 1
-	print("damage taken by base")
