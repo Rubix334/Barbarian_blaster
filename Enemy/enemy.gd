@@ -9,6 +9,8 @@ class_name Enemy
 
 var health : int:
 	set(new_health):
+		if health > new_health:
+			$AnimationPlayer.play("take_damage")
 		health = new_health
 		if health <= 0:
 			queue_free()
