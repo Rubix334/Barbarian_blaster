@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dtcnxxofouqf8"]
+[gd_scene load_steps=15 format=3 uid="uid://dtcnxxofouqf8"]
 
 [ext_resource type="PackedScene" uid="uid://br3qcltvc1sgb" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_3o4py"]
 [ext_resource type="MeshLibrary" uid="uid://c0c3djgifhbb0" path="res://MeshLibraries/space_library.tres" id="1_bo3yr"]
 [ext_resource type="PackedScene" uid="uid://cedg4p1ktt00c" path="res://Enemy/enemy.tscn" id="2_5vx1e"]
+[ext_resource type="Script" uid="uid://44kr7funbtde" path="res://Enemy/Enemy_path.gd" id="3_2elnx"]
 [ext_resource type="PackedScene" uid="uid://cp8jwl3inidhf" path="res://base/base.tscn" id="3_eesb3"]
 [ext_resource type="Script" uid="uid://cgu2xobyup678" path="res://Turret/turret_manager.gd" id="5_ftfrf"]
 [ext_resource type="PackedScene" uid="uid://d01unib15e15u" path="res://Turret/turret.tscn" id="6_u2wky"]
@@ -64,10 +65,16 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_bo3yr")
+script = ExtResource("3_2elnx")
+enemy_scene = ExtResource("2_5vx1e")
 
-[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+[node name="Timer" type="Timer" parent="EnemyPath"]
+wait_time = 2.0
+autostart = true
+
+[node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.2, 1, 0.2, 1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -82,7 +89,7 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_5vx1e")
 
-[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="LeftEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1.1, 0, -1.1, 0.25, -0.9, 0.25, -0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -97,7 +104,7 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_eesb3")
 
-[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="RightEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(1.1, 0, 1.1, 0.25, 0.9, 0.25, 0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -112,25 +119,6 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_eesb3")
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("2_5vx1e")]
-transform = Transform3D(-0.024582524, 0, -0.99969083, 0, 1, 0, 0.99969083, 0, -0.024582524, -22.712158, 0, 5.955886)
-
-[node name="Enemy2" parent="Path3D" instance=ExtResource("2_5vx1e")]
-transform = Transform3D(-0.0206273, 0, -0.99977124, 0, 1, 0, 0.99977124, 0, -0.0206273, -17.7134, 0, 6.0668364)
-progress = 5.0
-
-[node name="Enemy3" parent="Path3D" instance=ExtResource("2_5vx1e")]
-transform = Transform3D(-0.017708216, 0, -0.99983424, 0, 1, 0, 0.99983424, 0, -0.017708216, -12.714431, 0, 6.1627846)
-progress = 10.0
-
-[node name="Enemy4" parent="Path3D" instance=ExtResource("2_5vx1e")]
-transform = Transform3D(-0.014246019, 0, -0.9998897, 0, 1, 0, 0.9998897, 0, -0.014246019, -7.714971, 0, 6.243016)
-progress = 15.0
-
-[node name="Enemy5" parent="Path3D" instance=ExtResource("2_5vx1e")]
-transform = Transform3D(-0.009574244, 0, -0.9999472, 0, 1, 0, 0.9999472, 0, -0.009574244, -2.7153227, 0, 6.3032656)
-progress = 20.0
-
 [node name="Base" parent="." instance=ExtResource("3_eesb3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.17345, 0, -7.665709)
 max_health = 6
@@ -138,4 +126,6 @@ max_health = 6
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_ftfrf")
 turret = ExtResource("6_u2wky")
-enemy_path = NodePath("../Path3D")
+enemy_path = NodePath("../EnemyPath")
+
+[connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="_on_timer_timeout"]
