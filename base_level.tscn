@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dtcnxxofouqf8"]
+[gd_scene load_steps=19 format=3 uid="uid://dtcnxxofouqf8"]
 
 [ext_resource type="PackedScene" uid="uid://br3qcltvc1sgb" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_3o4py"]
 [ext_resource type="Script" uid="uid://brmiqfbffbybp" path="res://bank.gd" id="1_bkkah"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cp8jwl3inidhf" path="res://base/base.tscn" id="3_eesb3"]
 [ext_resource type="Script" uid="uid://cgu2xobyup678" path="res://Turret/turret_manager.gd" id="5_ftfrf"]
 [ext_resource type="PackedScene" uid="uid://d01unib15e15u" path="res://Turret/turret.tscn" id="6_u2wky"]
+[ext_resource type="PackedScene" uid="uid://duai3x7n3jwkp" path="res://difficulty_manager.tscn" id="9_xjg0i"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2elnx"]
 font_size = 64
@@ -42,6 +43,8 @@ albedo_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eesb3"]
 albedo_color = Color(0.75819176, 0.7581918, 0.75819165, 1)
+
+[sub_resource type="Curve" id="Curve_xjg0i"]
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -89,10 +92,11 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="EnemyPath" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_bo3yr")
 script = ExtResource("3_2elnx")
 enemy_scene = ExtResource("2_5vx1e")
+difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="Timer" type="Timer" parent="EnemyPath"]
 wait_time = 2.0
@@ -151,5 +155,8 @@ max_health = 6
 script = ExtResource("5_ftfrf")
 turret = ExtResource("6_u2wky")
 enemy_path = NodePath("../EnemyPath")
+
+[node name="DifficultyManager" parent="." instance=ExtResource("9_xjg0i")]
+enemy_health_curve = SubResource("Curve_xjg0i")
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="_on_timer_timeout"]
