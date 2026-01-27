@@ -45,7 +45,7 @@ albedo_color = Color(0.75819176, 0.7581918, 0.75819165, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
-[node name="Bank" type="MarginContainer" parent="."]
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -78,6 +78,7 @@ material = SubResource("StandardMaterial3D_bo3yr")
 transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 14.5, 9.5)
 turret_manger = NodePath("../TurretManager")
 gridmap = NodePath("../GridMap")
+difficulty = "easy"
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_bo3yr")
