@@ -4,8 +4,8 @@ extends Path3D
 @export var difficulty_manager : Node 
 func spawn_enemy() -> void:
 	var new_enemy = enemy_scene.instantiate()
+	new_enemy.max_health = difficulty_manager.get_enemy_health()
 	add_child(new_enemy)
-	new_enemy.progress_ratio = 0
 	timer.wait_time = difficulty_manager.get_spawn_time()
 
 
