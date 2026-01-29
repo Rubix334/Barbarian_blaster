@@ -4,6 +4,8 @@ extends Path3D
 @export var victory_layer : CanvasLayer
 @export var enemy_scene : PackedScene
 @export var difficulty_manager : Node 
+
+
 func spawn_enemy() -> void:
 	var new_enemy = enemy_scene.instantiate()
 	new_enemy.max_health = difficulty_manager.get_enemy_health()
@@ -16,10 +18,13 @@ func enemy_defeated() -> void:
 		for child in get_children():
 			if child is Enemy:
 				return
-		victory_layer.visible = true
+		victory_layer.victory()
 func _on_timer_timeout() -> void:
 	spawn_enemy()
 
 
 func _on_difficulty_manager_stop_spawning_enemies() -> void:
 	timer.stop()
+
+
+	

@@ -10,7 +10,7 @@ signal stop_spawning_enemies
 func _ready() -> void:
 	timer.wait_time = game_length
 	timer.start()
-	Engine.time_scale = 5
+	#Engine.time_scale = 3
 	
 func _process(delta: float) -> void:
 	#print(get_spawn_time())
