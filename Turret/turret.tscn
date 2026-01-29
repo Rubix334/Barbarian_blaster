@@ -1,23 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://d01unib15e15u"]
+[gd_scene format=3 uid="uid://d01unib15e15u"]
 
 [ext_resource type="Script" uid="uid://coqbxcwumauv" path="res://Turret/turret.gd" id="1_5kpma"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_cb20n"]
-height = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_5kpma"]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.5
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_djkev"]
-top_radius = 0.15
-bottom_radius = 0.1
-height = 0.5
+[ext_resource type="PackedScene" uid="uid://duuddfgwlgdxo" path="res://Assets/Meshes/Cannon.glb" id="2_ttsi1"]
+[ext_resource type="PackedScene" uid="uid://i7ygf8j5r4kp" path="res://Assets/Meshes/TurretBase.glb" id="3_r754r"]
 
 [sub_resource type="Animation" id="Animation_5kpma"]
 resource_name = "Fire"
-length = 0.3
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,22 +22,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TurretBase/TurretTop/Gun:position")
+tracks/1/path = NodePath("TurretBase/TurretTop:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.06724116, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0.77859414), Vector3(0, 0, 0.5661112), Vector3(0, 0, 0.779)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("TurretBase/TurretTop:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.1, 0.10391816, 0.14467038, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
@@ -72,22 +49,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TurretBase/TurretTop/Gun:position")
+tracks/1/path = NodePath("TurretBase/TurretTop:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0.77859414)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("TurretBase/TurretTop:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -100,27 +65,24 @@ _data = {
 &"RESET": SubResource("Animation_djkev")
 }
 
-[node name="Turret" type="Node3D"]
+[node name="Turret" type="Node3D" unique_id=1003302879]
 script = ExtResource("1_5kpma")
 
-[node name="TurretBase" type="MeshInstance3D" parent="."]
+[node name="TurretBase" type="Node3D" parent="." unique_id=166469677]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_cb20n")
 
-[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+[node name="TurretTop" type="Node3D" parent="TurretBase" unique_id=964410996]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-mesh = SubResource("CylinderMesh_5kpma")
 
-[node name="Gun" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.77859414)
-mesh = SubResource("CylinderMesh_djkev")
+[node name="Cannon" parent="TurretBase/TurretTop" unique_id=783290057 instance=ExtResource("2_ttsi1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3535337, 0)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=239739819]
 autostart = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ttsi1")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1375069710]
+libraries/ = SubResource("AnimationLibrary_ttsi1")
+
+[node name="TurretBase2" parent="." unique_id=789740922 instance=ExtResource("3_r754r")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

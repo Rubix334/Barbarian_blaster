@@ -3,21 +3,23 @@ extends Node3D
 var projectile = preload("res://Turret/projectile.tscn")
 var enemy_path : Path3D
 var target : Node3D
+@onready var cannon: Node3D = $TurretBase/TurretTop/Cannon
+@onready var turret_base: Node3D = $TurretBase
 
 @export var turret_range = 10.0
 
 func _physics_process(_delta: float) -> void:
 	target = find_best_target()
 	if target != null:
-		look_at(target.global_position,Vector3.UP, true)
+		turret_base.look_at(target.global_position,Vector3.UP, true)
 
 func _on_timer_timeout() -> void:
 	if target != null:
 		$AnimationPlayer.play("Fire")
 		var new_projectile = projectile.instantiate()
 		add_child(new_projectile)
-		new_projectile.global_position = global_position
-		new_projectile.direction = basis.z
+		new_projectile.global_position = cannon.global_position
+		new_projectile.direction = cannon.global_transform.basis.z
 
 func find_best_target() -> Enemy:
 	var best_target = null

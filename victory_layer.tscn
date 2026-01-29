@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fnpxq8jjvovk"]
 
 [ext_resource type="Script" uid="uid://76luocasr4vw" path="res://victory_layer.gd" id="1_12kce"]
-[ext_resource type="Texture2D" uid="uid://bo1160ue2vux4" path="res://star.png" id="2_iuw31"]
+[ext_resource type="Texture2D" uid="uid://bo1160ue2vux4" path="res://Assets/star.png" id="2_iuw31"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fxpm7"]
 font_size = 100
