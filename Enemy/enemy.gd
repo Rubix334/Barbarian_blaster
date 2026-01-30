@@ -5,15 +5,16 @@ class_name Enemy
 
 @onready var base : Base = get_tree().get_first_node_in_group("base")
 @onready var bank := get_tree().get_first_node_in_group("bank")
+@onready var animation_player: AnimationPlayer = $Barbarian/Armature/Skeleton3D/Barbarian_M_02/Highlight/AnimationPlayer
 
 @export var max_health := 50
 
-@export var gold_reward := 25
+@export var gold_reward := 15
 
 var health : int:
 	set(new_health):
 		if health > new_health:
-			$AnimationPlayer.play("take_damage")
+			animation_player.play("take_damage")
 		health = new_health
 		if health <= 0:
 			bank.gold += gold_reward

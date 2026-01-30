@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b87vckjw65h4i" path="res://base/base.gd" id="1_mftly"]
 [ext_resource type="PackedScene" uid="uid://bkfeg6y6uhfgv" path="res://Assets/Meshes/Base.glb" id="2_m7viw"]
+[ext_resource type="FontFile" uid="uid://bxf446v23gjcm" path="res://Assets/Forgore.otf" id="3_1ggjv"]
 
 [node name="Base" type="Node3D" unique_id=441259070 groups=["base"]]
 script = ExtResource("1_mftly")
@@ -13,5 +14,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.090966225, 5.259999, 1.202
 billboard = 1
 no_depth_test = true
 text = "5/5"
+font = ExtResource("3_1ggjv")
 font_size = 500
 outline_size = 100
